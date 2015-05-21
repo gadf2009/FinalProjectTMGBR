@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.goodbooze.com.au/canonicalmodel/messages/legacySystemRequestOrder/v1" xmlns="http://www.goodbooze.com.au/canonicalmodel/messages/legacySystemRequestOrder/v1"
+	xmlns:legacyot="http://www.goodbooze.com.au/canonicalmodel/types/legacyOrderTypes/v1"
+	elementFormDefault="qualified">
+	
+	<xs:import namespace="http://www.goodbooze.com.au/canonicalmodel/types/legacyOrderTypes/v1" schemaLocation="../../../types/legacyOrderTypes/v1/legacyOrderTypes.xsd" />
+	
+	<!--- Message recieved from the legacy system -->
+	
+		<xs:element name = "legacyRequestOrder">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="entryMessage" type="legacyot:entry"/>
+				</xs:sequence>
+			</xs:complexType>			
+		</xs:element>
+					
+</xs:schema>
+

@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.goodbooze.com.au/canonicalmodel/types/orderTypes/v1"
+	xmlns="http://www.goodbooze.com.au/canonicalmodel/types/orderTypes/v1"
+	elementFormDefault="qualified">
+
+	<xs:simpleType name="entryTypeOperation">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SAVE" />
+			<xs:enumeration value="ENRICH" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="statusSupplierOrder">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CREATED" />
+			<xs:enumeration value="SENT" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="statusStoreOrder">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ANALYSING" />
+			<xs:enumeration value="PROCESSED" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="storeOrderList">
+		<xs:sequence>
+			<xs:element name="storeOrder" type="storeOrder" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="supplierOrderList">
+		<xs:sequence>
+			<xs:element name="supplierOrder" type="supplierOrder" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="itemStoreOrderList">
+		<xs:sequence>
+			<xs:element name="itemStoreOrder" type="itemStoreOrder"
+				maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="itemSupplierOrderList">
+		<xs:sequence>
+			<xs:element name="itemSupplierOrderList" type="itemSupplierOrder"
+				maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:complexType name="entry">
+		<xs:sequence>
+			<xs:element name="insertDate" type="xs:dateTime" />
+			<xs:element name="proessDate" type="xs:dateTime" />
+			<xs:element name="storeOrderList" type="storeOrderList" />
+		</xs:sequence>
+		<xs:attribute name="entryID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="storeOrder">
+		<xs:sequence>
+			<xs:element name="status" type="statusSupplierOrder" />
+			<xs:element name="insertDate" type="xs:dateTime" />
+			<xs:element name="updateDate" type="xs:dateTime"
+				minOccurs="0" />
+			<xs:element name="itemStoreOrderList" type="itemStoreOrderList" />
+			<xs:element name="store" type="store" />
+		</xs:sequence>
+		<xs:attribute name="storeOrderID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="store">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="storeID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="itemStoreOrder">
+		<xs:sequence>
+			<xs:element name="quantity" type="xs:long" />
+			<xs:element name="product" type="product" />
+			<xs:element name="storeOrder" type="storeOrder" />
+		</xs:sequence>
+		<xs:attribute name="itemStoreOrderID" type="xs:integer"
+			use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="product">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+			<xs:element name="supplier" type="supplier" minOccurs="0" />
+			<xs:element name="productSupplierID" type="xs:integer"
+				minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="internalID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="supplier">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="supplierId" type="xs:integer" use="required" />
+	</xs:complexType>
+
+
+	<xs:complexType name="supplierOrder">
+		<xs:sequence>
+			<xs:element name="status" type="statusSupplierOrder" />
+			<xs:element name="insertDate" type="xs:dateTime" />
+			<xs:element name="updateDate" type="xs:dateTime"
+				minOccurs="0" />
+			<xs:element name="orderNumber" type="xs:integer" />
+			<xs:element name="itemSupplierOrderList" type="itemSupplierOrderList" />
+			<xs:element name="storeOrderList" type="itemSupplierOrderList" />
+			<xs:element name="supplier" type="supplier" />
+		</xs:sequence>
+		<xs:attribute name="supplierOrderID" use="required" type="xs:integer" />
+	</xs:complexType>
+
+	<xs:complexType name="itemSupplierOrder">
+		<xs:sequence>
+			<xs:element name="quantity" type="xs:long" />
+			<xs:element name="product" type="product" />
+			<xs:element name="supplierOrder" type="supplierOrder" />
+		</xs:sequence>
+		<xs:attribute name="itemSupplierOrderID" type="xs:integer"
+			use="required" />
+	</xs:complexType>
+
+
+</xs:schema>
+

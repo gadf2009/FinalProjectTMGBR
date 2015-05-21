@@ -1,0 +1,33 @@
+drop database liquor_store;
+create database liquor_store;
+use database liquor_store;
+
+create table Entry (entryID integer not null auto_increment, insertDate datetime, processDate datetime, primary key (entryID));
+create table ItemStoreOrder (itemStoreOrderID integer not null auto_increment, quantity bigint not null, productID integer not null, storeOrderID integer not null, primary key (itemStoreOrderID));
+create table ItemSupplierOrder (itemSupplierOrderID integer not null auto_increment, quantity bigint not null, productID integer not null, supplierOrderID integer not null, primary key (itemSupplierOrderID));
+create table Product (internalID integer not null auto_increment, name varchar(255) not null, productSupplierID integer not null, supplierID integer not null, primary key (internalID));
+create table Store (storeID integer not null auto_increment, name varchar(255) not null, primary key (storeID));
+create table StoreOrder (storeOrderID integer not null auto_increment, insertDate datetime, processDate datetime, status varchar(255), entryID integer not null, primary key (storeOrderID));
+create table Supplier (supplierId integer not null auto_increment, name varchar(255) not null, primary key (supplierId));
+create table SupplierOrder (supplierOrderID integer not null auto_increment, insertDate datetime, orderNumber integer not null, processDate datetime, status varchar(255), supplierID integer not null, primary key (supplierOrderID));
+create table SupplierOrder_StoreOrder (SupplierOrder_supplierOrderID integer not null, storeOrderList_storeOrderID integer not null);
+
+alter table ItemStoreOrder add index (storeOrderID), add constraint foreign key (storeOrderID) references StoreOrder (storeOrderID);
+alter table ItemStoreOrder add index (productID), add constraint foreign key (productID) references Product (internalID);
+alter table ItemSupplierOrder add index (productID), add constraint foreign key (productID) references Product (internalID);
+alter table ItemSupplierOrder add index (supplierOrderID), add constraint foreign key (supplierOrderID) references SupplierOrder (supplierOrderID);
+alter table Product add index (supplierID), add constraint foreign key (supplierID) references Supplier (supplierId);
+alter table StoreOrder add index (entryID), add constraint foreign key (entryID) references Entry (entryID);
+alter table SupplierOrder add index (supplierID), add constraint foreign key (supplierID) references Supplier (supplierId);
+alter table SupplierOrder_StoreOrder add index (SupplierOrder_supplierOrderID), add constraint foreign key (SupplierOrder_supplierOrderID) references SupplierOrder (supplierOrderID);
+alter table SupplierOrder_StoreOrder add index (storeOrderList_storeOrderID), add constraint foreign key (storeOrderList_storeOrderID) references StoreOrder (storeOrderID);
+
+INSERT INTO supplier (name) VALUES ('SUPPLIER_A'), ('SUPPLIER_B'), ('SUPPLIER_C');
+
+INSERT INTO product (name, productSupplierID, supplierID)
+	VALUES
+	("Stella", 100, 1),("Heineken", 101, 1),("Budweiser", 102, 1),("Guinness", 103, 1),
+	("Duvel", 200, 2),("Bohemia", 201, 2),("Sol", 202, 2),("Devassa", 203, 2),
+	("Crystal", 300, 3),("Itaipava", 301, 3),("Kaiser", 302, 3),("Antarctica", 303, 3);
+
+INSERT INTO store (name) VALUES ('STORE_A'), ('STORE_B'), ('STORE_C'), ('STORE_D');

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.goodbooze.com.au/canonicalmodel/messages/supplierOrderRequest/v1" xmlns="http://www.goodbooze.com.au/canonicalmodel/messages/supplierOrderRequest/v1"
+	xmlns:rot="http://www.goodbooze.com.au/canonicalmodel/types/orderTypes/v1"
+	elementFormDefault="qualified">
+	
+	<xs:import namespace="http://www.goodbooze.com.au/canonicalmodel/types/orderTypes/v1" schemaLocation="../../../types/orderTypes/v1/orderTypes.xsd" />
+
+	<!--- Message that will be send to the BD to save the supplierOrderm -->
+	
+		<xs:element name = "supplierOrder">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="supplierOrderMessage" type="rot:supplierOrder"/>
+				</xs:sequence>
+				<xs:attribute name="supplierID" type="xs:integer" use="required" />
+			</xs:complexType>	
+		</xs:element>
+					
+</xs:schema>
+

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.goodbooze.com.au/canonicalmodel/types/legacyOrderTypes/v1"
+	xmlns="http://www.goodbooze.com.au/canonicalmodel/types/legacyOrderTypes/v1"
+	elementFormDefault="qualified">
+
+	<xs:complexType name="storeOrderList">
+		<xs:sequence>
+			<xs:element name="storeOrder" type="storeOrder" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="itemStoreOrderList">
+		<xs:sequence>
+			<xs:element name="itemStoreOrder" type="itemStoreOrder"
+				maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="entry">
+		<xs:sequence>
+			<xs:element name="storeOrderList" type="storeOrderList" />
+		</xs:sequence>
+		<xs:attribute name="entryID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="storeOrder">
+		<xs:sequence>
+			<xs:element name="insertDate" type="xs:dateTime" />
+			<xs:element name="itemStoreOrderList" type="itemStoreOrderList" />
+			<xs:element name="store" type="store" />
+		</xs:sequence>
+		<xs:attribute name="storeOrderID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="store">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="storeID" type="xs:integer" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="itemStoreOrder">
+		<xs:sequence>
+			<xs:element name="quantity" type="xs:long" />
+			<xs:element name="product" type="product" />
+			<xs:element name="storeOrder" type="storeOrder" />
+		</xs:sequence>
+		<xs:attribute name="itemStoreOrderID" type="xs:integer"
+			use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="product">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="internalID" type="xs:integer" use="required" />
+	</xs:complexType>
+</xs:schema>
+

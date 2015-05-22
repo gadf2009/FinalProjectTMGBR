@@ -21,13 +21,16 @@ public class StoreOrder{
 	@Temporal(TemporalType.TIMESTAMP)
     protected Calendar insertDate;
 	@Temporal(TemporalType.TIMESTAMP)
-    protected Calendar processDate;
+    protected Calendar updateDate;
     protected String status;
     @Id@GeneratedValue
     protected int storeOrderID;
     @ManyToOne
     @JoinColumn(name = "entryID", nullable = false)
     protected Entry entry;
+    @ManyToOne
+    @JoinColumn(name = "storeID", nullable = false)
+    protected Store store;
     @OneToMany
     @JoinColumn(name="storeOrderID")
     protected Collection<ItemStoreOrder> itemStoreOrderList;
@@ -48,12 +51,12 @@ public class StoreOrder{
         this.insertDate = insertDate;
     }
 
-    public Calendar getProcessDate() {
-        return processDate;
+    public Calendar getUpdateDate() {
+        return updateDate;
     }
 
-    public void setProcessDate(Calendar processDate) {
-        this.processDate = processDate;
+    public void setUpdateDate(Calendar updateDate) {
+        this.updateDate = updateDate;
     }
     
     public int getStoreOrderID() {
@@ -67,8 +70,15 @@ public class StoreOrder{
     public Entry getEntry(){
 		return entry;
 	}
-	public void setIdClient(Entry entry){
+	public void setEntry(Entry entry){
 		this.entry = entry;
+	}
+	
+    public Store getStore(){
+		return store;
+	}
+	public void setStore(Store store){
+		this.store = store;
 	}
 	
 	public ArrayList<ItemStoreOrder> getItemStoreOrder() {

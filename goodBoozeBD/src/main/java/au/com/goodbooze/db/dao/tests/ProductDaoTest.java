@@ -105,40 +105,48 @@ public class ProductDaoTest extends TestCase{
 	@Test
 	public void testFindById() throws SQLException {
 		//Get first Product
-		Product product = (Product)productDao.listAll().get(1);
+		Product product1 = (Product)productDao.listAll().get(1);
 		//Look for Product 1 id
-		Product product2 = (Product)productDao.findById(supplier1.getSupplierId());
+		Product product2 = (Product)productDao.findById(product1.getInternalID());
 		//Check if they are equal
-	    assertEquals(supplier1, supplier2);
+	    assertEquals(product1, product2);
 	}
-	/*
+	
 	@Test
 	public void testListAll() throws SQLException {
-		int oldQuantityOfSuppliers = supplierDao.listAll().size();
+		int initalNumberOfProducts = productDao.listAll().size();
 		
-		//Add one Supplier
+		//Find one Supplier
 		
-		Supplier supplier4 = new Supplier();
-		supplier4.setName("Supplier4");
-		supplierDao.persist(supplier4);
-		int newQuantityOfSuppliers = supplierDao.listAll().size();
+		Supplier supplier = (Supplier)supplierDao.listAll().get(0);
+		
+		//Add one Product
+		Product product4 = new Product();
+		product4.setName("Product 4");
+		product4.setProductSupplierID(20);
+		product4.setSupplier(supplier);
+		
+		productDao.persist(product4);
+		
+		
+		int newQuantityOfProducts = productDao.listAll().size();
 
-	    assertEquals(oldQuantityOfSuppliers+1, newQuantityOfSuppliers);
+	    assertEquals(initalNumberOfProducts+1, newQuantityOfProducts);
 	}
 	
 	@Test
 	public void testDelete() throws SQLException {
-		int oldQuantityOfSuppliers = supplierDao.listAll().size();
+		int initalNumberOfProducts = productDao.listAll().size();
 		
-		//Get first Supplier
-		Supplier supplier = (Supplier)supplierDao.listAll().get(0);
+		//Get first Product
+		Product product = (Product)productDao.listAll().get(0);
 		
-		supplierDao.delete(supplier.getSupplierId());
+		productDao.delete(product.getInternalID());
 		
-		int newQuantityOfSuppliers = supplierDao.listAll().size();
+		int newQuantityOfProducts = productDao.listAll().size();
 
-	    assertEquals(oldQuantityOfSuppliers-1, newQuantityOfSuppliers);
-	}*/
+	    assertEquals(initalNumberOfProducts-1, newQuantityOfProducts);
+	}
 
 	
 }

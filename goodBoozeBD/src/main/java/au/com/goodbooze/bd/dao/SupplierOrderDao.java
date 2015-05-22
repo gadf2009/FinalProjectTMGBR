@@ -4,25 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.swing.JOptionPane;
 
-import au.com.goodbooze.bd.model.Supplier;
+import au.com.goodbooze.bd.model.SupplierOrder;
 
-public class SupplierDao{
+public class SupplierOrderDao{
 	EntityManager manager;
 
-	public SupplierDao(EntityManager manager) {
+	public SupplierOrderDao(EntityManager manager) {
 		this.manager = manager;
 	}
 
 	public int persist(Object o) {
-		Supplier sup = (Supplier) o;
+		SupplierOrder supplierOrder = (SupplierOrder)o;
 		try {
 			manager.getTransaction().begin();
-			manager.persist(sup);
+			manager.persist(supplierOrder);
 			manager.getTransaction().commit();
 
-			return sup.getSupplierId();
+			return supplierOrder.getSupplierOrderID();
 		} catch (Exception e) {
 			System.out.println("exception" + e);
 			return 0;
@@ -30,10 +29,10 @@ public class SupplierDao{
 	}
 
 	public boolean update(Object o) {
-		Supplier sup = (Supplier) o;
+		SupplierOrder supplierOrder = (SupplierOrder)o;
 		try {
 			manager.getTransaction().begin();
-			manager.merge(sup);
+			manager.merge(supplierOrder);
 			manager.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
@@ -44,7 +43,7 @@ public class SupplierDao{
 
 	public Object findById(int id) {
 		try {
-			return manager.find(Supplier.class, id);
+			return manager.find(SupplierOrder.class, id);
 		} catch (Exception e) {
 			System.out.println("exception" + e);
 			return false;
@@ -55,24 +54,11 @@ public class SupplierDao{
 	public List<Object> listAll() {
 		try {
 			return (ArrayList<Object>) manager.createQuery(
-					"FROM " + Supplier.class.getName()).getResultList();
+					"FROM " + SupplierOrder.class.getName()).getResultList();
 		} catch (Exception e) {
 			System.out.println("exception" + e);
 			return null;
 		}
 
 	}
-
-	public void delete(int id) {
-		try {
-			Supplier sup = (Supplier)findById(id);
-			manager.getTransaction().begin();
-			manager.remove(sup);
-			manager.getTransaction().commit();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e);
-		}
-
-	}
-
 }

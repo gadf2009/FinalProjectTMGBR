@@ -12,7 +12,7 @@ public class Supplier{
 	@Column(nullable=false)
 	private String name;
 	@Id@GeneratedValue
-	private long supplierId;
+	private int supplierId;
 
     public String getName() {
         return name;
@@ -22,11 +22,11 @@ public class Supplier{
         this.name = value;
     }
 
-    public long getSupplierId() {
+    public int getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(long supplierId) {
+    public void setSupplierId(int supplierId) {
         this.supplierId = supplierId;
     }
 }

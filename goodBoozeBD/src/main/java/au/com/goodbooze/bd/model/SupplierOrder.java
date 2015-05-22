@@ -25,7 +25,7 @@ public class SupplierOrder{
     @Temporal(TemporalType.TIMESTAMP)
     protected Calendar insertDate;
     @Temporal(TemporalType.TIMESTAMP)
-    protected Calendar processDate;
+    protected Calendar updateDate;
     protected int orderNumber;
     @OneToMany
     @JoinColumn(name="supplierOrderID")
@@ -60,12 +60,12 @@ public class SupplierOrder{
         this.insertDate = insertDate;
     }
 
-    public Calendar getProcessDate() {
-        return processDate;
+    public Calendar getUpdateDate() {
+        return updateDate;
     }
 
-    public void setProcessDate(Calendar processDate) {
-        this.processDate = processDate;
+    public void setUpdateDate(Calendar updateDate) {
+        this.updateDate = updateDate;
     }
 
     public int getOrderNumber() {
